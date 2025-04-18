@@ -31,13 +31,17 @@ jobs:
             core.setOutput('additions', additions);
             core.setOutput('deletions', deletions);
             core.setOutput('totalChanges', totalChanges);
-      - name: Post comment on PR
+            - name: Post comment on PR
         uses: actions/github-script@v6
+        env:
+          ADDITIONS: ${{ steps.diff.outputs.additions }}
+          DELETIONS: ${{ steps.diff.outputs.deletions }}
+          TOTAL_CHANGES: ${{ steps.diff.outputs.totalChanges }}
         with:
           script: |
-            const additions = steps.diff.outputs.additions;
-            const deletions = steps.diff.outputs.deletions;
-            const totalChanges = steps.diff.outputs.totalChanges;
+            const additions = process.env.ADDITIONS;
+            const deletions = process.env.DELETIONS;
+            const totalChanges = process.env.TOTAL_CHANGES;
 
             const commentBody = `
             ### 📊 Code Changes Summary
