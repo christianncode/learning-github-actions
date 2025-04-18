@@ -1,4 +1,4 @@
-name: Worflow for PRs
+name: Workflow for PRs
 run-name: Running my first workflow for PRs
 permissions:
   contents: read
@@ -7,10 +7,58 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  testing-first-job:
+  check-lines-of-code:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Run a one-line script
-        run: echo This is a PR workflow!!
+      - name: Get lines of code added and removed
+        id: diff
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+            });
+
+            const additions = files.reduce((sum, file) => sum + file.additions, 0);
+            const deletions = files.reduce((sum, file) => sum + file.deletions, 0);
+            const totalChanges = additions + deletions;
+
+            core.setOutput('additions', additions);
+            core.setOutput('deletions', deletions);
+            core.setOutput('totalChanges', totalChanges);
+            - name: Post comment on PR
+        uses: actions/github-script@v6
+        env:
+          ADDITIONS: ${{ steps.diff.outputs.additions }}
+          DELETIONS: ${{ steps.diff.outputs.deletions }}
+          TOTAL_CHANGES: ${{ steps.diff.outputs.totalChanges }}
+        with:
+          script: |
+            const additions = process.env.ADDITIONS;
+            const deletions = process.env.DELETIONS;
+            const totalChanges = process.env.TOTAL_CHANGES;
+
+            const commentBody = `
+            ### 📊 Code Changes Summary
+            | Lines Added | Lines Removed | Total Changes |
+            |-------------|---------------|---------------|
+            | ${additions} | ${deletions} | ${totalChanges} |
+
+            ${
+              totalChanges > 500
+                ? "❌ **Too many changes! The PR exceeds the limit of 500 lines.**"
+                : "✅ **The PR is within the acceptable limit.**"
+            }
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: commentBody,
+            });
