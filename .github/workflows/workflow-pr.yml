@@ -1,5 +1,8 @@
 name: Worflow for PRs
 run-name: Running my first workflow for PRs
+permissions:
+  contents: read
+  pull-requests: write
 on:
   pull_request:
     branches: [main]
