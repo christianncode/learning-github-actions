@@ -15,19 +15,18 @@ jobs:
       - name: Get lines of code added and removed
         id: diff
         uses: actions/github-script@v6
-        env:
-          ADDITIONS: ${{ steps.diff.outputs.additions }}
-          DELETIONS: ${{ steps.diff.outputs.deletions }}
-          TOTAL_CHANGES: ${{ steps.diff.outputs.totalChanges }}
         with:
           script: |
-            const additions = process.env.ADDITIONS;
-            const deletions = process.env.DELETIONS;
-            const totalChanges = process.env.TOTAL_CHANGES;
+            const diff = await github.rest.repos.compareCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: context.payload.pull_request.base.sha,
+              head: context.payload.pull_request.head.sha,
+            });
 
-            const commentBody = `
-            ### 📊 Code Changes Summary
-            | Lines Added | Lines Removed | Total Changes |
+            const additions = diff.data.ahead_by;
+            const deletions = diff.data.behind_by;
+            const totalChanges = additions + deletions;
             |-------------|---------------|---------------|
             | ${additions} | ${deletions} | ${totalChanges} |
 
