@@ -17,15 +17,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const diff = await github.rest.repos.compareCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              base: context.payload.pull_request.base.sha,
-              head: context.payload.pull_request.head.sha,
-            });
-
-            const additions = diff.data.ahead_by;
-            const deletions = diff.data.behind_by;
+            const additions = context.payload.pull_request.additions;
+            const deletions = context.payload.pull_request.deletions;
             const totalChanges = additions + deletions;
             const commentBody = `
             ### 📊 Code Changes Summary
