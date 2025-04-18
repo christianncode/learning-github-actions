@@ -27,6 +27,9 @@ jobs:
             const additions = diff.data.ahead_by;
             const deletions = diff.data.behind_by;
             const totalChanges = additions + deletions;
+            const commentBody = `
+            ### 📊 Code Changes Summary
+            | Lines Added | Lines Removed | Total Changes |
             |-------------|---------------|---------------|
             | ${additions} | ${deletions} | ${totalChanges} |
 
