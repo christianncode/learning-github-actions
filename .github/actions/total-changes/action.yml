@@ -1,0 +1,5 @@
+name: Get Total Changes
+description: Get the total number of lines added and removed in a pull request
+runs:
+  using: "node16"
+  main: "index.js"
