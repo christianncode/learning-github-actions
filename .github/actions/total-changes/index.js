@@ -1,6 +1,9 @@
 import * as github from "@actions/github";
+import * as core from "@actions/core";
 
 async function run() {
+  const token = core.getInput("GITHUB_TOKEN");
+  const octokit = github.getOctokit(token);
   const context = github.context;
   const pullRequest = context.payload.pull_request;
 
@@ -31,7 +34,7 @@ async function run() {
   }
   `;
 
-  await github.rest.issues.createComment({
+  await octokit.rest.issues.createComment({
     owner: context.repo.owner,
     repo: context.repo.repo,
     issue_number: pullRequest.number,

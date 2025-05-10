@@ -18,3 +18,5 @@ jobs:
         working-directory: ./.github/actions/total-changes
       - name: Get lines of code added and removed
         uses: ./.github/actions/total-changes
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
