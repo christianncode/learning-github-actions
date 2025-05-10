@@ -2,8 +2,20 @@ import * as github from "@actions/github";
 
 async function run() {
   const context = github.context;
-  const additions = context.payload.pull_request.additions;
-  const deletions = context.payload.pull_request.deletions;
+  const pullRequest = context.payload.pull_request;
+
+  if (
+    !pullRequest ||
+    !pullRequest.additions ||
+    !pullRequest.deletions ||
+    !pullRequest.number
+  ) {
+    console.error("Invalid pull request payload.");
+    process.exit(1);
+  }
+
+  const additions = pullRequest.additions;
+  const deletions = pullRequest.deletions;
   const totalChanges = additions + deletions;
 
   const commentBody = `
@@ -22,7 +34,7 @@ async function run() {
   await github.rest.issues.createComment({
     owner: context.repo.owner,
     repo: context.repo.repo,
-    issue_number: context.payload.pull_request.number,
+    issue_number: pullRequest.number,
     body: commentBody,
   });
 }

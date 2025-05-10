@@ -8,5 +8,6 @@
   },
   "dependencies": {
     "@actions/github": "^6.0.0"
-  }
+  },
+  "type": "module"
 }
