@@ -1,4 +1,6 @@
 name: My manual workflow
+permissions:
+  contents: read
 on:
   workflow_dispatch:
     inputs:
