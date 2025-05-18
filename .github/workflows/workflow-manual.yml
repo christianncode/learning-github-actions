@@ -1,0 +1,31 @@
+name: My manual workflow
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Your name"
+        required: true
+        default: "Christian"
+      age:
+        description: "Your age"
+        type: number
+        required: true
+        default: 30
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    env:
+      MY_FULLNAME: Christian Anderson
+      MY_AGE: 100
+    steps:
+      - name: Greet the person by inputs
+        run: echo "Hello ${{ github.event.inputs.name }}! You are ${{ github.event.inputs.age }} years old."
+      - name: Greet the person by secrets and variables in Github settings
+        run: echo "Hello ${{ vars.MY_FULLNAME }}! You are ${{ secrets.MY_AGE }} years old."
+      - name: Greet the person by environment variables in workflow step
+        env:
+          MY_FULLNAME: ${{ vars.MY_FULLNAME }}
+          MY_AGE: ${{ secrets.MY_AGE }}
+        run: echo "Hello $MY_FULLNAME! You are $MY_AGE years old."
+      - name: Greet the person by environment variables in workflow job
+        run: echo "Hello $MY_FULLNAME! You are $MY_AGE years old."
