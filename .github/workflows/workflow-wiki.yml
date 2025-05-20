@@ -1,5 +1,7 @@
 name: Actualizar Home de la Wiki
 on: workflow_dispatch
+permissions:
+  contents: write
 jobs:
   update-wiki-home:
     runs-on: ubuntu-latest
