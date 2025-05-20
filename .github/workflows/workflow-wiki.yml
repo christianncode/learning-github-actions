@@ -1,0 +1,22 @@
+name: Actualizar Home de la Wiki
+on: workflow_dispatch
+jobs:
+  update-wiki-home:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar la wiki
+        run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git wiki
+
+      - name: Actualizar Home.md
+        run: |
+          echo "Hello world!!!" > wiki/Home.md
+
+      - name: Subir cambios a la wiki
+        run: |
+          cd wiki
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git add .
+          git commit -m "Actualizar Home.md automáticamente con 'Hello world!!!'"
+          git push
