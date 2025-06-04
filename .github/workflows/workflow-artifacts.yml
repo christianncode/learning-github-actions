@@ -1,0 +1,23 @@
+name: Worflow for artifacts
+permissions:
+  contents: read
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to run the workflow on"
+        required: true
+        default: "main"
+jobs:
+  upload-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Create test file
+        run: echo "This is a test file." > test.txt
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs
+          path: test.txt
