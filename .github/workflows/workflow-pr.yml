@@ -19,10 +19,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install dependencies for custom action
-        run: npm install
-        working-directory: ./.github/actions/total-changes
-      - name: Get lines of code added and removed
-        uses: ./.github/actions/total-changes
+      - name: PR total changes
+        uses: christianncode/pr-total-changes@v1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
