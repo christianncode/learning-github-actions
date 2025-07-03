@@ -1,5 +1,8 @@
 name: Worflow for Debugging
 on: workflow_dispatch
+permissions:
+  contents: read
+  actions: read
 jobs:
   creating-artefacts:
     runs-on: ubuntu-latest
