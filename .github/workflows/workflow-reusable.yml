@@ -1,0 +1,9 @@
+name: Workflow Reusable For Wiki
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  update-wiki-home:
+    uses: christianncode/workflow-utilities/.github/workflows/workflow-wiki.yml@main
+    with:
+      message: "Actualizando wiki desde un workflow reusable"
