@@ -1,0 +1,11 @@
+name: Workflow Scheduled Event
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  study:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Alert
+      run: echo "You must study!!"
