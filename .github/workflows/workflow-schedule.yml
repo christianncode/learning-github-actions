@@ -1,11 +1,12 @@
 name: Workflow Scheduled Event
+permissions: {}
 on:
   schedule:
     - cron: "*/5 * * * *"
 
 jobs:
   study:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Alert
-      run: echo "You must study!!"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Alert
+        run: echo "You must study!!"
