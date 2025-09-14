@@ -5,7 +5,7 @@ on:
 
 jobs:
   study:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Alert
-      run: echo "You must study!!"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Alert
+        run: echo "You must study!!"
