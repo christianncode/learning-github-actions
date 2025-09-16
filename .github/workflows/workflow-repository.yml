@@ -1,0 +1,18 @@
+name: Workflow Repository Dispatch
+permissions:
+  contents: read
+on:
+  repository_dispatch:
+    types: [deploy]
+jobs:
+  deploy-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Application
+        run: |
+          echo "Deploying application..."
+          echo "payload: ${{ github.event.client_payload }}"
+          echo "action: ${{ github.event.action }}"
+          echo "repository: ${{ github.event.repository }}"
+          echo "sender: ${{ github.event.sender }}"
+          echo "branch: ${{ github.event.branch }}"
