@@ -1,4 +1,6 @@
 name: Workflow Repository Dispatch
+permissions:
+  contents: read
 on:
   repository_dispatch:
     types: [deploy]
