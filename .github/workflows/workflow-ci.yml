@@ -7,13 +7,16 @@ jobs:
   call-reusable-workflow:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Call CI Workflow
         uses: ./.github/workflows/utilities/reusable-workflow.yml
   call-composite-workflow:
     runs-on: ubuntu-latest
     steps:
       - name: Call Greeting Workflow
-        uses: ./.github/workflows/utilities/composite-workflow.yml
+        uses: ./utilities/composite-workflow.yml
         with:
           name: "Desarrollador"
           message: "Hola"
