@@ -1,0 +1,19 @@
+name: Greeting Workflow
+description: A reusable workflow that greets a user by name.
+
+inputs:
+  name:
+    description: "Nombre de la persona a saludar"
+    required: true
+    default: "Usuario"
+  message:
+    description: "Mensaje personalizado"
+    required: false
+    default: "Hello"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Greet User
+      run: echo "${{ inputs.message }}, ${{ inputs.name }}!"
+      shell: bash
