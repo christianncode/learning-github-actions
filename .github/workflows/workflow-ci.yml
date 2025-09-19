@@ -12,9 +12,13 @@ jobs:
 
       - name: Call CI Workflow
         uses: ./.github/workflows/utilities/reusable-workflow
+
   call-composite-workflow:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Call Greeting Workflow
         uses: ./.github/workflows/utilities/composite-workflow
         with:

@@ -3,7 +3,6 @@ description: A reusable workflow for continuous integration tasks.
 on: workflow_call
 jobs:
   CI:
-    name: Setup Node.js Environment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
