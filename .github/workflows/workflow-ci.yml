@@ -15,8 +15,11 @@ jobs:
   call-composite-workflow:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Call Greeting Workflow
-        uses: ./utilities/composite-workflow.yml
+        uses: ./.github/workflows/utilities/composite-workflow
         with:
           name: "Desarrollador"
           message: "Hola"
