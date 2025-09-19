@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Call CI Workflow
-        uses: ./.github/workflows/utilities/reusable-workflow.yml@main
+        uses: ./.github/workflows/utilities/reusable-workflow.yml
   call-composite-workflow:
     runs-on: ubuntu-latest
     steps:
