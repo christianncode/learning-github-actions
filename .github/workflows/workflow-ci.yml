@@ -1,0 +1,17 @@
+name: Workflow CI
+description: A workflow that calls reusable and composite workflows.
+on: [push]
+jobs:
+  call-reusable-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call CI Workflow
+        uses: ./.github/workflows/utilities/reusable-workflow.yml
+  call-composite-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Greeting Workflow
+        uses: ./.github/workflows/utilities/composite-workflow.yml
+        with:
+          name: "Desarrollador"
+          message: "Hola"
