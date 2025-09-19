@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Call Greeting Workflow
-        uses: ./.github/workflows/utilities/composite-workflow/action.yml
+        uses: ./.github/workflows/utilities/composite-workflow
         with:
           name: "Desarrollador"
           message: "Hola"
