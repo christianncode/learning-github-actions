@@ -7,11 +7,8 @@ jobs:
   call-reusable-workflow:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Call CI Workflow
-        uses: ./.github/workflows/utilities/reusable-workflow
+        uses: ./.github/workflows/reusable-workflow-CI.yml
 
   call-composite-workflow:
     runs-on: ubuntu-latest

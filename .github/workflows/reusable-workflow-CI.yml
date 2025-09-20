@@ -1,7 +1,6 @@
 name: CI Workflow
 description: A reusable workflow for continuous integration tasks.
-on:
-  workflow_call:
+on: workflow_call
 jobs:
   CI:
     runs-on: ubuntu-latest
