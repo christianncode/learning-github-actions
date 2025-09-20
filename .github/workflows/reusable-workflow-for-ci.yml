@@ -1,5 +1,5 @@
 name: CI Workflow
-description: A reusable workflow for continuous integration tasks.
+description: A reusable workflow for continuous integration tasks
 on: workflow_call
 jobs:
   CI:

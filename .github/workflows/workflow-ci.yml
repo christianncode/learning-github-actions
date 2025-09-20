@@ -5,7 +5,7 @@ permissions:
 on: [push]
 jobs:
   call-reusable-workflow:
-    uses: ./.github/workflows/reusable-workflow-ci.yml
+    uses: ./.github/workflows/reusable-workflow-for-ci.yml
 
   call-composite-workflow:
     runs-on: ubuntu-latest
