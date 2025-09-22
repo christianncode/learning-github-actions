@@ -1,5 +1,5 @@
 name: Workflow CI
-description: A workflow that calls reusable and composite workflows.
+description: A workflow that calls reusable and composite workflows
 permissions:
   contents: read
 on: [pull_request]
