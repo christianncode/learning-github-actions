@@ -1,6 +1,9 @@
 name: CI Workflow
 description: A reusable workflow for continuous integration tasks
 on: workflow_call
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   CI:
     runs-on: ubuntu-latest
