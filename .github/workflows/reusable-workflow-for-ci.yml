@@ -1,0 +1,26 @@
+name: CI Workflow
+description: A reusable workflow for continuous integration tasks
+on: workflow_call
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }} // tiene sentido solo si el workflow se utiliza en varias ramas
+  cancel-in-progress: true
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: npm run build
