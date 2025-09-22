@@ -1,9 +1,8 @@
 name: CI Workflow
-description: A reusable workflow for continuous integration tasks.
+description: A reusable workflow for continuous integration tasks
 on: workflow_call
 jobs:
   CI:
-    name: Setup Node.js Environment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -13,16 +12,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22.x"
-          cache: "pnpm"
-
-      - name: Install pnpm
-        run: npm install -g pnpm
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Run tests
-        run: pnpm test
+        run: npm test
 
       - name: Build project
-        run: pnpm run build
+        run: npm run build
