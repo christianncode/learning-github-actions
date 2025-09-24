@@ -2,13 +2,15 @@ name: Workflow CI
 description: A workflow that calls reusable and composite workflows
 permissions:
   contents: read
-on: [pull_request]
+on: [push]
 jobs:
   call-reusable-workflow:
     uses: ./.github/workflows/reusable-workflow-for-ci.yml
 
   call-composite-workflow:
+    if: ${{ vars.CAN_EXECUTE_COMPOSITE_WORKFLOW == 'true' }}
     runs-on: ubuntu-latest
+    environment: Development
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
