@@ -17,5 +17,5 @@ jobs:
       - name: Call Greeting Workflow
         uses: ./.github/workflows/utilities/composite-workflow
         with:
-          name: environment ${{ vars.ENVIRONMENT_NAME }}
+          name: "environment: ${{ vars.ENVIRONMENT_NAME }}"
           message: "Hola"
