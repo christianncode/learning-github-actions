@@ -1,0 +1,22 @@
+name: Workflow CD
+description: Testing a workflow CD
+on: push
+permissions:
+  contents: read
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment: "Development"
+    steps:
+      - name: Crear deployment
+        uses: actions/github-script@v8
+        with:
+          script: |
+            github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.ref,
+              environment: 'Development',
+              auto_merge: false,
+              required_contexts: []
+            })
