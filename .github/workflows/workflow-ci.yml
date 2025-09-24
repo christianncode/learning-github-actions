@@ -8,7 +8,6 @@ jobs:
     uses: ./.github/workflows/reusable-workflow-for-ci.yml
 
   call-composite-workflow:
-    if: ${{ vars.CAN_EXECUTE_COMPOSITE_WORKFLOW == 'true' }}
     runs-on: ubuntu-latest
     environment: Development
     steps:
@@ -18,5 +17,5 @@ jobs:
       - name: Call Greeting Workflow
         uses: ./.github/workflows/utilities/composite-workflow
         with:
-          name: "Desarrollador"
+          name: ${{ vars.ENVIRONMENT_NAME }}
           message: "Hola"
