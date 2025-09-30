@@ -1,0 +1,15 @@
+name: Workflow CD Azure
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Azure Static Web Apps Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_TOKEN_SSG }}
+          app_location: "/public"
+          action: "upload"
