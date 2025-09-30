@@ -2,13 +2,14 @@ name: Workflow CI
 description: A workflow that calls reusable and composite workflows
 permissions:
   contents: read
-on: [pull_request]
+on: [push, pull_request]
 jobs:
   call-reusable-workflow:
     uses: ./.github/workflows/reusable-workflow-for-ci.yml
 
   call-composite-workflow:
     runs-on: ubuntu-latest
+    environment: Development
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -16,5 +17,5 @@ jobs:
       - name: Call Greeting Workflow
         uses: ./.github/workflows/utilities/composite-workflow
         with:
-          name: "Desarrollador"
+          name: "Environment: ${{ vars.ENVIRONMENT_NAME }}"
           message: "Hola"
