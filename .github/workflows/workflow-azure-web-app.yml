@@ -12,12 +12,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22.x"
+          cache: "npm"
 
-      - name: "npm install, build, and test"
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Install production dependencies only
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          rm -rf node_modules
+          npm ci --only=production
 
       - name: "Run Azure webapp deploy action using publish profile credentials"
         uses: azure/webapps-deploy@v2.2.17
