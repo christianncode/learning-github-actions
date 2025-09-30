@@ -1,0 +1,26 @@
+name: Build and deploy Node.js app to Azure Web App
+on: push
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Github Action"
+        uses: actions/checkout@v4
+
+      - name: Setup Node 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+
+      - name: "npm install, build, and test"
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+
+      - name: "Run Azure webapp deploy action using publish profile credentials"
+        uses: azure/webapps-deploy@v2.2.17
+        with:
+          app-name: web-with-nextjs
+          publish-profile: ${{ secrets.AZURE_WEB_APP_PUBLISH_PROFILE }}
