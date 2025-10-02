@@ -16,3 +16,6 @@ jobs:
       - name: "Run commands on Azure VM"
         run: |
           ssh -o StrictHostKeyChecking=no azureuser@40.82.162.21 touch hello.txt
+
+      - name: "Run deploy script on Azure VM"
+        run: bash .github/scripts/deploy.sh
