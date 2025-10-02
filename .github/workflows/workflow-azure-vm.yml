@@ -1,0 +1,18 @@
+name: Workflow for Azure VM
+on: push
+
+jobs:
+  connect-to-azure-vm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Github Action"
+        uses: actions/checkout@v4
+
+      - name: "Connect to azure VM using SSH"
+        uses: "webfactory/ssh-agent@v0.9.1"
+        with:
+          ssh-private-key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
+
+      - name: "Run commands on Azure VM"
+        run: |
+          ssh -o StrictHostKeyChecking=no azureuser@40.82.162.21 touch hello.txt
