@@ -1,0 +1,23 @@
+name: Workflow for Azure VM
+permissions:
+  contents: read
+on: workflow_dispatch
+
+jobs:
+  connect-to-azure-vm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Github Action"
+        uses: actions/checkout@v4
+
+      - name: "Setup SSH agent"
+        uses: "webfactory/ssh-agent@v0.9.0"
+        with:
+          ssh-private-key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
+
+      - name: "Run commands on Azure VM"
+        run: |
+          ssh -o StrictHostKeyChecking=no azureuser@40.82.162.21 touch hello.txt
+
+      - name: "Run deploy script on Azure VM"
+        run: bash .github/scripts/deploy.sh
