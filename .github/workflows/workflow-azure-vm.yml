@@ -1,4 +1,6 @@
 name: Workflow for Azure VM
+permissions:
+  contents: read
 on: workflow_dispatch
 
 jobs:
